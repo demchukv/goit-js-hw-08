@@ -68,22 +68,47 @@ const images = [
 const gallery = document.querySelector(".gallery");
 
 let galleryData = '';
-for (const { preview, original, description } of images) {
-    galleryData += `<li class="gallery-item">`;
-    galleryData += `<a class="gallery-link" href="${original}">`;
-    galleryData += `<img class="gallery-image" src="${preview}" data-source="${original}" alt="${description}" />`; 
-    galleryData += `</a>`; 
-    galleryData += `</li>`;
-}
+images.forEach(image => {
+  galleryData += `<li class="gallery-item">`;
+  galleryData += `<a class="gallery-link" href="${image.original}">`;
+  galleryData += `<img class="gallery-image" src="${image.preview}" data-source="${image.original}" alt="${image.description}" />`;
+  galleryData += `</a>`;
+  galleryData += `</li>`;
+});
 gallery.insertAdjacentHTML("afterbegin", galleryData);
 
+const checkEscapeKey = (event) => {
+  if (event.code === "Escape") {
+    instance.close();
+  }
+}
+
+const instance = basicLightbox.create(`<img class="gallery-original" src="" width="800" height="600">`, {
+  onShow: (instance) => {
+    gallery.addEventListener("keydown", checkEscapeKey);
+  },
+  onClose: () => {
+    gallery.removeEventListener("keydown", checkEscapeKey);
+  }
+});
+
+const getOriginalImageUrl = (event) => {
+  event.preventDefault();
+  if (event.target.tagName === "IMG") {
+    instance.element().querySelector("img").src = event.target.dataset.source;
+    instance.show();
+  }
+}
+
+gallery.addEventListener("click", getOriginalImageUrl);
+
+/*
 const getOriginalImageUrl = (event) => {
     event.preventDefault();
     if (event.target.tagName === "IMG") {
         const instance = basicLightbox.create(`
             <img class="gallery-original" src="${event.target.dataset.source}" width="800" height="600">
-        `);
-        instance.show();
+        `).show();
         gallery.addEventListener("keydown", event => {
         if (event.code === "Escape") {
             instance.close();
@@ -92,6 +117,5 @@ const getOriginalImageUrl = (event) => {
         });
     }
 }
-
 gallery.addEventListener("click", getOriginalImageUrl);
-
+*/
