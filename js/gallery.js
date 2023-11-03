@@ -92,7 +92,7 @@ const instance = basicLightbox.create(`<img class="gallery-original" src="" widt
   }
 });
 
-const getOriginalImageUrl = (event) => {
+const showBigImage = (event) => {
   event.preventDefault();
   if (event.target.tagName === "IMG") {
     instance.element().querySelector("img").src = event.target.dataset.source;
@@ -100,4 +100,4 @@ const getOriginalImageUrl = (event) => {
   }
 }
 
-gallery.addEventListener("click", getOriginalImageUrl);
+gallery.addEventListener("click", showBigImage);
