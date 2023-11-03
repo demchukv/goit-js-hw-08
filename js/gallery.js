@@ -84,7 +84,7 @@ const checkEscapeKey = (event) => {
 }
 
 const instance = basicLightbox.create(`<img class="gallery-original" src="" width="800" height="600">`, {
-  onShow: (instance) => {
+  onShow: () => {
     gallery.addEventListener("keydown", checkEscapeKey);
   },
   onClose: () => {
@@ -101,21 +101,3 @@ const getOriginalImageUrl = (event) => {
 }
 
 gallery.addEventListener("click", getOriginalImageUrl);
-
-/*
-const getOriginalImageUrl = (event) => {
-    event.preventDefault();
-    if (event.target.tagName === "IMG") {
-        const instance = basicLightbox.create(`
-            <img class="gallery-original" src="${event.target.dataset.source}" width="800" height="600">
-        `).show();
-        gallery.addEventListener("keydown", event => {
-        if (event.code === "Escape") {
-            instance.close();
-            event.stopPropagation();
-        }
-        });
-    }
-}
-gallery.addEventListener("click", getOriginalImageUrl);
-*/
