@@ -63,8 +63,6 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
-
-
 const gallery = document.querySelector(".gallery");
 
 let galleryData = '';
@@ -85,10 +83,10 @@ const checkEscapeKey = (event) => {
 
 const instance = basicLightbox.create(`<img class="gallery-original" src="" width="800" height="600">`, {
   onShow: () => {
-    gallery.addEventListener("keydown", checkEscapeKey);
+    document.addEventListener("keydown", checkEscapeKey);
   },
   onClose: () => {
-    gallery.removeEventListener("keydown", checkEscapeKey);
+    document.removeEventListener("keydown", checkEscapeKey);
   }
 });
 
